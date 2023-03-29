@@ -54,7 +54,7 @@ jobs:
         if: ${{ matrix.custom-suffix }}
         run: |
           cd GPTQ-for-LLaMa/dist/
-          rename 'dev0' 'dev0+cu117' *.whl 
+          rename 'dev0' 'dev0+cu118' *.whl 
       - uses: actions/upload-artifact@v3
         with:
           name: bitsandbytes-wheel-${{ matrix.os-version }}-${{ matrix.python-version }}-${{ matrix.cuda-version }}
