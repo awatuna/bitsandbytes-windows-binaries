@@ -40,7 +40,7 @@ jobs:
           pip install ${{ matrix.torch-install-command }}
           pip install -r requirements.txt
           pip install wheel
-      - uses: Jimver/cuda-toolkit@v0.2.8
+      - uses: Jimver/cuda-toolkit@v0.2.10
         id: cuda-toolkit
         with:
           cuda: ${{ matrix.cuda-version }}
@@ -53,7 +53,7 @@ jobs:
       - id: rename
         if: ${{ matrix.custom-suffix }}
         run: |
-          cd GPTQ-for-LLaMa/dist/
+          cd bitsandbytes/dist/
           rename 'dev0' 'dev0+cu118' *.whl 
       - uses: actions/upload-artifact@v3
         with:
@@ -71,4 +71,3 @@ jobs:
           artifacts: "*/*.whl"
           tag: ${{ github.run_id }}
           commit: ${{ github.sha }}
-
