@@ -6,7 +6,7 @@ bitsandbytes windows binary build with cuda 11.8
 
 download and place libbitsandbytes_cuda118.dll
 
-$USERPROFILE$\anaconda3\envs\textgen\lib\site-packages\bitsandbytes\
+%USERPROFILE%\anaconda3\envs\textgen\lib\site-packages\bitsandbytes\
 
 In \bitsandbytes\cuda_setup\main.py search for:
 	
