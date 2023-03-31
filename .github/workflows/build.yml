@@ -49,25 +49,21 @@ jobs:
           CUDA_HOME: ${{ steps.cuda-toolkit.outputs.CUDA_PATH }}
         run: |
           cd bitsandbytes
-          python setup.py bdist_wheel
-      - id: rename
-        if: ${{ matrix.custom-suffix }}
-        run: |
-          cd bitsandbytes/dist/
-          rename 'dev0' 'dev0+cu118' *.whl 
-      - uses: actions/upload-artifact@v3
-        with:
-          name: bitsandbytes-wheel-${{ matrix.os-version }}-${{ matrix.python-version }}-${{ matrix.cuda-version }}
-          path: bitsandbytes/dist/*.whl
+          cmake -B win64
+          cd win64
+          msbuild libbitsandbytes_cuda.vcxproj /property:Configuration=Release
   release:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
       - id: get-artifact
         uses: actions/download-artifact@v3
-      - id: release
-        uses: ncipollo/release-action@v1
+      - name: Upload dll to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          artifacts: "*/*.whl"
-          tag: ${{ github.run_id }}
-          commit: ${{ github.sha }}
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: bitsandbytes/win64/Release/libbitsandbytes_cuda118.dll
+          asset_name: libbitsandbytes_cuda118.dll
+          asset_content_type: application/octet-stream
