@@ -35,7 +35,7 @@ jobs:
           vsversion: 2022
       - id: prepare-build
         run: |
-          git clone https://github.com/acpopescu/bitsandbytes
+          git clone -b cmake_windows https://github.com/acpopescu/bitsandbytes
           cd bitsandbytes
           pip install ${{ matrix.torch-install-command }}
           pip install -r requirements.txt
