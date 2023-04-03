@@ -59,6 +59,6 @@ jobs:
       - id: release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "*/*.dll"
+          artifacts: "*/*/*.dll"
           tag: ${{ github.run_id }}
           commit: ${{ github.sha }}
