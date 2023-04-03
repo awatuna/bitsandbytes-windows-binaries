@@ -56,12 +56,9 @@ jobs:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
-      - name: Upload binaries to release
-        uses: svenstaro/upload-release-action@v2
+      - id: release
+        uses: ncipollo/release-action@v1
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: D:\a\bitsandbytes-windows-binaries\bitsandbytes-windows-binaries\bitsandbytes\win64\Release\libbitsandbytes_cuda118.dll
-          asset_name: win64 dll
-          tag: ${{ github.ref }}
-          overwrite: true
-          body: "updated to target python 3.10.9 cuda 11.8 sm 8.6"
+          artifacts: "*/*.dll"
+          tag: ${{ github.run_id }}
+          commit: ${{ github.sha }}
